@@ -1,6 +1,6 @@
 // from data.js
 let tableData = data;
-let tableIdSelection = d3.select("#ufo-table");
+let tbody = d3.select("#ufo-table");
 let submit = d3.select("#filter-btn");
 
 // tableData[0]['datetime']
@@ -12,13 +12,14 @@ let dateParser = (createdTime)=>{
     return convertedDate
 };
 
+// default value
 inputValue = dateParser('1/1/2010')
 
 submit.on("click", ()=> {
   d3.event.preventDefault();
   let inputElement = d3.select("#datetime");
-  // I know scary global var but like, we struggling
   inputValue = inputElement.property("value");
+  pageData();
   return inputValue
 });
 
@@ -26,20 +27,24 @@ let cleanDate = (k)=>{
 	return k.datetime >= inputValue
 }
 
-cleanedData = tableData.filter(cleanDate)
+let pageData = ()=>{
+    tbody.text('')
 
-cleanedData.forEach((ufo) => {
-    let row = tableIdSelection.append("tr");
-
-    // test = ufo.filter(cleanDate)
-    // console.log(test)
-
-    Object.entries(ufo).forEach(([key, value]) => {
-        let cell = row.append("td");
-        cell.text(value);
-        // let castedTime = dateParser(ufo['datetime'])
-        // if (castedTime >= inputValue){
-        //     console.log(castedTime);   }    
-        
+    cleanedData = tableData.filter(cleanDate)
+    cleanedData.forEach((ufo) => {
+        let row = tbody.append("tr");
+        Object.entries(ufo).forEach(([key, value]) => {
+            let cell = row.append("td");
+            cell.text(value);
+        });
     });
-});
+};
+let clean = ()=>{
+    tbody.text('')
+    // tbody.remove("td")
+}
+
+
+
+
+pageData();
