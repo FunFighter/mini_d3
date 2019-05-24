@@ -12,7 +12,7 @@ let dateParser = (createdTime)=>{
     return convertedDate
 };
 
-// default value
+// default value clean up global var
 inputValue = dateParser('1/1/2010')
 
 submit.on("click", ()=> {
@@ -23,12 +23,11 @@ submit.on("click", ()=> {
   return inputValue
 });
 
-let cleanDate = (k)=>{
-	return k.datetime >= inputValue
-}
+let cleanDate = k => k.datetime >= inputValue 
 
 let pageData = ()=>{
-    tbody.text('')
+  // for some reason this messes up the spacing in the table?
+  clean()
 
     cleanedData = tableData.filter(cleanDate)
     cleanedData.forEach((ufo) => {
@@ -39,12 +38,8 @@ let pageData = ()=>{
         });
     });
 };
-let clean = ()=>{
-    tbody.text('')
-    // tbody.remove("td")
-}
 
-
+let clean = () => tbody.text(' ') 
 
 
 pageData();
