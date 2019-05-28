@@ -1,11 +1,8 @@
-// from data.js
 let tableData = data;
 let tbody = d3.select("#ufo-table");
 let submit = d3.select("#filter-btn");
 
-// tableData[0]['datetime']
-
-let dateParser = (createdTime)=>{
+let dateParser =  createdTime => {
     let parseDate = d3.timeParse("%d/%m/%Y");
     let formatTime = d3.timeFormat("%d/%m/%Y");
     let convertedDate = formatTime(parseDate(createdTime));
@@ -25,12 +22,18 @@ submit.on("click", ()=> {
 
 let cleanDate = k => k.datetime >= inputValue 
 
-let pageData = ()=>{
-  // for some reason this messes up the spacing in the table?
-  clean()
+let pageData = () =>{
 
+  clean()
     cleanedData = tableData.filter(cleanDate)
-    cleanedData.forEach((ufo) => {
+    
+  // [1] for property indexing of the dictory keys.
+  keyValues = Object.keys(cleanedData[1])
+    keyValues.forEach((value) => 
+      tbody.append('td').text(value)
+    );
+
+    cleanedData.forEach(ufo => {
         let row = tbody.append("tr");
         Object.entries(ufo).forEach(([key, value]) => {
             let cell = row.append("td");
@@ -39,7 +42,7 @@ let pageData = ()=>{
     });
 };
 
-let clean = () => tbody.text(' ') 
+let clean = () => tbody.text(' ');
 
 
 pageData();
