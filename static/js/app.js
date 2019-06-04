@@ -27,6 +27,7 @@ inputValue = dateParser('1/1/2010')
 
 
 
+//-------------------------- test zone ------------------------------
 
 filterDictArr2 = []
 classes = ['#datetime','#country', '#city', '#state', '#shape']
@@ -51,6 +52,8 @@ let filteredData = () =>{
 filterDictArr2.forEach(keyValue => keyValue.key)
 usedValues = filterDictArr2.map(keyValue => keyValue.key)
 usedKeys = filterDictArr2.map(keyValue => keyValue.key)
+
+//-------------------------- test zone ------------------------------
 
 // This works for one item, not many
 let inputChecker = () =>{
