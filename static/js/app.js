@@ -57,6 +57,17 @@ let cleanData = k => {
  }
 }; 
 
+// The much better way that Adele came up with
+//
+// const cleanData = k => {
+//   let isEqual = true;
+//   for(let {key, value} of filteringObjsArr) {
+//     let rowValueAndArrayValueAreEqual = k[key] === value;
+//     isEqual = isEqual && rowValueAndArrayValueAreEqual;
+//   }
+//   return isEqual;
+//  }
+
 submit.on("click", ()=> {
   d3.event.preventDefault();
   pullInputValues();
