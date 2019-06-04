@@ -47,52 +47,43 @@ let test3 = ()=>{
   }
 } 
 
-
-
- 
 //works for multi filtering but is hard coded so it will error out :(
-var cleanData2 = k => {
-  return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-    k[filterDictArr2[1].key] == filterDictArr2[1].value &&
-    k[filterDictArr2[2].key] == filterDictArr2[2].value 
- };
-filterDictArr2.Length > 0 && filterDictArr2[0].key in k &&
-
-filteredObj = tableData.filter(cleanData2)
-
 // This is so gross, but some times you gotta do what you gotta do
 // It is the same thing as above but uses if statments to control the returns. 
 // this is not done yet working on filling it in and testing it.
-var cleanData2 = k => {
-  if (filterDictArr2.Length == 0){
+let cleanData2 = k => {
+  if (filterDictArr2.length == 0){
    return k[filterDictArr2[0].key] == filterDictArr2[0].value
 
- } else if (filterDictArr2.Length == 1){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value
+ } else if (filterDictArr2.length == 1){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value 
 
- }else if (filterDictArr2.Length == 2){
+ }else if (filterDictArr2.length == 2){
    return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value
+   k[filterDictArr2[1].key] == filterDictArr2[1].value 
 
- }else if (filterDictArr2.Length == 3){
+ }else if (filterDictArr2.length == 3){
    return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value
+   k[filterDictArr2[1].key] == filterDictArr2[1].value &&
+   k[filterDictArr2[2].key] == filterDictArr2[2].value 
 
- }else if (filterDictArr2.Length == 4){
+ }else if (filterDictArr2.length == 4){
    return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value
+   k[filterDictArr2[1].key] == filterDictArr2[1].value &&
+   k[filterDictArr2[2].key] == filterDictArr2[2].value &&
+   k[filterDictArr2[3].key] == filterDictArr2[3].value 
 
- }else if (filterDictArr2.Length == 5){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value
+ }else if (filterDictArr2.length == 5){
+  return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+  k[filterDictArr2[1].key] == filterDictArr2[1].value &&
+  k[filterDictArr2[2].key] == filterDictArr2[2].value &&
+  k[filterDictArr2[3].key] == filterDictArr2[3].value &&
+  k[filterDictArr2[4].key] == filterDictArr2[4].value 
+
+ } else {
+   return 1
  }
 }; 
-
-// // maybe map
-// filterDictArr2.forEach(keyValue => keyValue.key)
-// usedValues = filterDictArr2.map(keyValue => keyValue.key)
-// usedKeys = filterDictArr2.map(keyValue => keyValue.key)
 
 //===================================================================
 //-------------------------- test zone ------------------------------
@@ -148,7 +139,6 @@ submit.on("click", ()=> {
   let inputElement = inputChecker();
   keyChecker = inputChecker()._groups[0][0].id
   inputValue = inputElement.property("value");
-
   pageData();
   return inputValue
 });
@@ -161,6 +151,7 @@ reset.on("click", ()=> {
 
 let pageData = () =>{
   clean()
+  //filteredObj = tableData.filter(cleanData2)
   let cleanDate = k => k[keyChecker] == inputValue 
     cleanedData = tableData.filter(cleanDate)
     cleanedData.forEach(ufo => {
