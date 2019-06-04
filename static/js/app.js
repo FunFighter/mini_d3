@@ -24,21 +24,15 @@ let customColumns = () => {
 // default value to load the page on the init
 inputValue = dateParser('1/1/2010')
 
-
-//===================================================================
-//-------------------------- test zone ------------------------------
-//===================================================================
-
-filterDictArr2 = []
 classes = ['#datetime','#country', '#city', '#state', '#shape']
 
 // This takes the data and appends it to a list of objects.
-let test3 = ()=>{
-  filterDictArr2 = []
+let pullInputValues = ()=>{
+  filteringObjsArr = []
   for (let HTMLClass of classes){
     (d3.select(HTMLClass).property('value') != '' ) 
       ?
-      filterDictArr2.push({
+      filteringObjsArr.push({
         key : d3.select(HTMLClass)._groups[0][0].id,
         value : d3.select(HTMLClass).property('value')
         })
@@ -51,96 +45,44 @@ let test3 = ()=>{
 // This is so gross, but some times you gotta do what you gotta do
 // It is the same thing as above but uses if statments to control the returns. 
 // this is not done yet working on filling it in and testing it.
-let cleanData2 = k => {
-  if (filterDictArr2.length == 0){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value
+let cleanData = k => {
+  if (filteringObjsArr.length == 0){
+   return initPage();
 
- } else if (filterDictArr2.length == 1){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value 
+ } else if (filteringObjsArr.length == 1){
+   return k[filteringObjsArr[0].key] == filteringObjsArr[0].value 
 
- }else if (filterDictArr2.length == 2){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value 
+ }else if (filteringObjsArr.length == 2){
+   return k[filteringObjsArr[0].key] == filteringObjsArr[0].value && 
+   k[filteringObjsArr[1].key] == filteringObjsArr[1].value 
 
- }else if (filterDictArr2.length == 3){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value &&
-   k[filterDictArr2[2].key] == filterDictArr2[2].value 
+ }else if (filteringObjsArr.length == 3){
+   return k[filteringObjsArr[0].key] == filteringObjsArr[0].value && 
+   k[filteringObjsArr[1].key] == filteringObjsArr[1].value &&
+   k[filteringObjsArr[2].key] == filteringObjsArr[2].value 
 
- }else if (filterDictArr2.length == 4){
-   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-   k[filterDictArr2[1].key] == filterDictArr2[1].value &&
-   k[filterDictArr2[2].key] == filterDictArr2[2].value &&
-   k[filterDictArr2[3].key] == filterDictArr2[3].value 
+ }else if (filteringObjsArr.length == 4){
+   return k[filteringObjsArr[0].key] == filteringObjsArr[0].value && 
+   k[filteringObjsArr[1].key] == filteringObjsArr[1].value &&
+   k[filteringObjsArr[2].key] == filteringObjsArr[2].value &&
+   k[filteringObjsArr[3].key] == filteringObjsArr[3].value 
 
- }else if (filterDictArr2.length == 5){
-  return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
-  k[filterDictArr2[1].key] == filterDictArr2[1].value &&
-  k[filterDictArr2[2].key] == filterDictArr2[2].value &&
-  k[filterDictArr2[3].key] == filterDictArr2[3].value &&
-  k[filterDictArr2[4].key] == filterDictArr2[4].value 
+ }else if (filteringObjsArr.length == 5){
+  return k[filteringObjsArr[0].key] == filteringObjsArr[0].value && 
+  k[filteringObjsArr[1].key] == filteringObjsArr[1].value &&
+  k[filteringObjsArr[2].key] == filteringObjsArr[2].value &&
+  k[filteringObjsArr[3].key] == filteringObjsArr[3].value &&
+  k[filteringObjsArr[4].key] == filteringObjsArr[4].value 
 
  } else {
    return 1
  }
 }; 
 
-//===================================================================
-//-------------------------- test zone ------------------------------
-//===================================================================
-
-
-// This works for one item, not many
-let inputChecker = () =>{
-  filterDictArr = []
-  if (d3.select("#datetime").property('value') != ''){
-    filterDictArr.push({
-      key : d3.select("#datetime")._groups[0][0].id ,
-      value : d3.select("#datetime").property('value')
-    });
-    return d3.select("#datetime")
-
-  } if (d3.select("#city").property('value') != ''){
-    filterDictArr.push({
-      key : d3.select("#city")._groups[0][0].id ,
-      value : d3.select("#city").property('value')
-    });
-    return d3.select("#city")
-
-  } if (d3.select("#state").property('value') !=''){
-    filterDictArr.push({
-      key : d3.select("#state")._groups[0][0].id ,
-      value : d3.select("#state").property('value')
-    });
-    return d3.select("#state")
-
-  } if (d3.select("#country").property('value') != ''){
-    filterDictArr.push({
-      key : d3.select("#country")._groups[0][0].id ,
-      value : d3.select("#country").property('value')
-    });
-    return d3.select("#country")
-
-  } if (d3.select("#shape").property('value') != ''){
-    filterDictArr.push({
-      key : d3.select("#shape")._groups[0][0].id ,
-      value : d3.select("#shape").property('value')
-    });
-    return d3.select("#shape")
-  } if (1 == 1) {
-    return d3.select("#datetime");
-  } return filterDictArr
-};
-
-
-
 submit.on("click", ()=> {
   d3.event.preventDefault();
-  let inputElement = inputChecker();
-  keyChecker = inputChecker()._groups[0][0].id
-  inputValue = inputElement.property("value");
+  pullInputValues();
   pageData();
-  return inputValue
 });
 
 reset.on("click", ()=> {
@@ -151,9 +93,7 @@ reset.on("click", ()=> {
 
 let pageData = () =>{
   clean()
-  //filteredObj = tableData.filter(cleanData2)
-  let cleanDate = k => k[keyChecker] == inputValue 
-    cleanedData = tableData.filter(cleanDate)
+    cleanedData = tableData.filter(cleanData)
     cleanedData.forEach(ufo => {
         let row = tbody.append("tr");
         Object.entries(ufo).forEach(([key, value]) => {
