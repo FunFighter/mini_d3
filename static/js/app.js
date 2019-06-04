@@ -21,12 +21,10 @@ let customColumns = () => {
   );
 };
 
-// default value to load the page on the init
-inputValue = dateParser('1/1/2010')
-
 classes = ['#datetime','#country', '#city', '#state', '#shape']
 
 // This takes the data and appends it to a list of objects.
+// To then use as filters
 let pullInputValues = ()=>{
   filteringObjsArr = []
   for (let HTMLClass of classes){
@@ -41,10 +39,7 @@ let pullInputValues = ()=>{
   }
 } 
 
-//works for multi filtering but is hard coded so it will error out :(
 // This is so gross, but some times you gotta do what you gotta do
-// It is the same thing as above but uses if statments to control the returns. 
-// this is not done yet working on filling it in and testing it.
 let cleanData = k => {
   if (filteringObjsArr.length == 0){
    return initPage();
