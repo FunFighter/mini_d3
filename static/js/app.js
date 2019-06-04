@@ -3,23 +3,6 @@ const tbody = d3.select("tbody");
 const submit = d3.select("#filter-btn");
 const reset = d3.select('#reset-btn')
 
-// This function lets you do more custom date filtering
-let dateParser =  createdTime => {
-    let parseDate = d3.timeParse("%d/%m/%Y");
-    let formatTime = d3.timeFormat("%d/%m/%Y");
-    let convertedDate = formatTime(parseDate(createdTime));
-    return convertedDate
-};
-
-  // If you want to use custom data and not hard code column names.
-  // This is so it only returns on column
-let customColumns = () => {
-  // [1] for proper indexing of the dictory keys.
-  keyValues = Object.keys(tableData[1])
-  keyValues.forEach((value) => 
-  tbody.append('td').text(value)
-  );
-};
 
 classes = ['#datetime','#country', '#city', '#state', '#shape']
 
@@ -70,7 +53,7 @@ let cleanData = k => {
   k[filteringObjsArr[4].key] == filteringObjsArr[4].value 
 
  } else {
-   return 1
+  return initPage();
  }
 }; 
 
@@ -114,3 +97,27 @@ let clean = () => tbody.text(' ');
 
 
 initPage();
+
+
+//----------- Hall of too much work to flesh out these but worth keeping -----------
+// This function lets you do more custom date filtering
+// This worked great, until the mutli filtering and trying to 
+let dateParser =  createdTime => {
+  let parseDate = d3.timeParse("%d/%m/%Y");
+  let formatTime = d3.timeFormat("%d/%m/%Y");
+  let convertedDate = formatTime(parseDate(createdTime));
+  return convertedDate
+};
+
+// If you want to use custom data and not hard code column names.
+// This is so it only returns on column
+let customColumns = () => {
+  // [1] for proper indexing of the dictory keys.
+  keyValues = Object.keys(tableData[1])
+  
+  keyValues.forEach((value) => 
+    tbody.append('td').text(value)
+);
+};
+
+//------------------------------------------------------------------------------------
