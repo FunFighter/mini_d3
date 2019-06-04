@@ -11,10 +11,10 @@ let dateParser =  createdTime => {
     return convertedDate
 };
 
-let customColumns = ()=>{
   // If you want to use custom data and not hard code column names.
   // This is so it only returns on column
-  // [1] for property indexing of the dictory keys.
+let customColumns = () => {
+  // [1] for proper indexing of the dictory keys.
   keyValues = Object.keys(tableData[1])
   keyValues.forEach((value) => 
   tbody.append('td').text(value)
@@ -25,13 +25,14 @@ let customColumns = ()=>{
 inputValue = dateParser('1/1/2010')
 
 
-
-
+//===================================================================
 //-------------------------- test zone ------------------------------
+//===================================================================
 
 filterDictArr2 = []
 classes = ['#datetime','#country', '#city', '#state', '#shape']
 
+// This takes the data and appends it to a list of objects.
 let test3 = ()=>{
   filterDictArr2 = []
   for (let HTMLClass of classes){
@@ -45,15 +46,58 @@ let test3 = ()=>{
       null
   }
 } 
-let filteredData = () =>{
-  return Object.keys(this).every((key)=> tableData[key] === this[key])
-}
-// maybe map
-filterDictArr2.forEach(keyValue => keyValue.key)
-usedValues = filterDictArr2.map(keyValue => keyValue.key)
-usedKeys = filterDictArr2.map(keyValue => keyValue.key)
 
+
+
+ 
+//works for multi filtering but is hard coded so it will error out :(
+var cleanData2 = k => {
+  return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+    k[filterDictArr2[1].key] == filterDictArr2[1].value &&
+    k[filterDictArr2[2].key] == filterDictArr2[2].value 
+ };
+filterDictArr2.Length > 0 && filterDictArr2[0].key in k &&
+
+filteredObj = tableData.filter(cleanData2)
+
+// This is so gross, but some times you gotta do what you gotta do
+// It is the same thing as above but uses if statments to control the returns. 
+// this is not done yet working on filling it in and testing it.
+var cleanData2 = k => {
+  if (filterDictArr2.Length == 0){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value
+
+ } else if (filterDictArr2.Length == 1){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+   k[filterDictArr2[1].key] == filterDictArr2[1].value
+
+ }else if (filterDictArr2.Length == 2){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+   k[filterDictArr2[1].key] == filterDictArr2[1].value
+
+ }else if (filterDictArr2.Length == 3){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+   k[filterDictArr2[1].key] == filterDictArr2[1].value
+
+ }else if (filterDictArr2.Length == 4){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+   k[filterDictArr2[1].key] == filterDictArr2[1].value
+
+ }else if (filterDictArr2.Length == 5){
+   return k[filterDictArr2[0].key] == filterDictArr2[0].value && 
+   k[filterDictArr2[1].key] == filterDictArr2[1].value
+ }
+}; 
+
+// // maybe map
+// filterDictArr2.forEach(keyValue => keyValue.key)
+// usedValues = filterDictArr2.map(keyValue => keyValue.key)
+// usedKeys = filterDictArr2.map(keyValue => keyValue.key)
+
+//===================================================================
 //-------------------------- test zone ------------------------------
+//===================================================================
+
 
 // This works for one item, not many
 let inputChecker = () =>{
@@ -97,6 +141,8 @@ let inputChecker = () =>{
   } return filterDictArr
 };
 
+
+
 submit.on("click", ()=> {
   d3.event.preventDefault();
   let inputElement = inputChecker();
@@ -126,7 +172,7 @@ let pageData = () =>{
     });
 };
 
-// loads the page, add to reset button
+// loads the page, added to a reset
 let initPage = () =>{
   clean()
     tableData.forEach(ufo => {
